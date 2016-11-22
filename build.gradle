@@ -1,0 +1,49 @@
+// com.github.com.antksk.java8_training
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'clean-code',
+    'Implementation-Version': version
+  }
+}
+
+repositories { mavenCentral() }
+
+dependencies {
+  // https://mvnrepository.com/artifact/com.google.guava/guava
+  compile group: 'com.google.guava', name: 'guava', version: '20.0'
+  // https://mvnrepository.com/artifact/org.projectlombok/lombok
+  compile group: 'org.projectlombok', name: 'lombok', version: '1.16.10'
+  // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+  compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+  
+  // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-library
+  testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
+  
+  testCompile 'junit:junit:4.+'
+}
+
+// eclipse 플러그인 실행시 자동으로 기본 Java 디렉토리 구조를 생성하도록 한다.
+task baseDirs << {
+  sourceSets.each { set ->
+    set.java.srcDirs.each { dir ->
+      if (!dir.exists()) dir.mkdirs()
+    }
+    set.resources.srcDirs.each { dir ->
+      if (!dir.exists()) dir.mkdirs()
+    }
+  }
+
+  if (!buildDir.exists()) buildDir.mkdirs()
+}
+
+tasks.eclipse.dependsOn baseDirs
+
+uploadArchives {
+  repositories { flatDir { dirs 'repos' } }
+}
