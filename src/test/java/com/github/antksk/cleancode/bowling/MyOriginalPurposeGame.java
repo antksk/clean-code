@@ -39,14 +39,22 @@ public class MyOriginalPurposeGame implements Game {
 
   @Override
   public int score() {
-    log.debug("rolls : {} ", rolls);
+    // log.debug("rolls : {} ", rolls);
     int firstFrame = 0;
     int score = 0;
     for( int frame = GAME_START_BASE; BOWLING_GAME_FRAME_COUNT > frame; ++frame ){
-      if( isClearSpare(firstFrame) ){
+      // 첫번째 공으로 모두 쓰러트리면(strike)
+      if( isStrkie(firstFrame) ){
+        score += CLEAR + rolls[firstFrame + 1] + rolls[firstFrame + 2];
+        firstFrame += 1;
+      }
+      // spare를 처리 했으면, 10 + 다음 roll의 첫번째, 점수를 더함
+      else if( isClearSpare(firstFrame) ){
         score += CLEAR + rolls[firstFrame+2];
         firstFrame+= 2;
-      }else{
+      }
+      // 일반 적으로 게임 진행시(spare를 처리 하지 못하면), 첫번째 + 두번째 pin 쓰러트린 갯수 더함 
+      else{
         score += rolls[firstFrame] + rolls[firstFrame+1];
         firstFrame+= 2;
       }
@@ -54,7 +62,11 @@ public class MyOriginalPurposeGame implements Game {
     return score;
   }
 
+  private boolean isStrkie(int firstFrame) {
+    return CLEAR == rolls[firstFrame];
+  }
+
   private boolean isClearSpare(int firstFrame) {
-    return CLEAR == rolls[firstFrame] + rolls[firstFrame+1];
+    return CLEAR == (rolls[firstFrame] + rolls[firstFrame+1]);
   }
 }

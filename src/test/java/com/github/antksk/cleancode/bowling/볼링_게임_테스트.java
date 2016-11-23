@@ -79,29 +79,29 @@ public class 볼링_게임_테스트 {
     assertThat(game.score(), is(16)); // 단순히 score에 pin 갯수를 더했기 때문에, 에러 발생!!!
   }
   
-  /*
   @Test
   public void oneStrike() {
       // frame 1
       game.roll(10); // 첫 fraem에 strike가 나면
-      // 10 + 같은 frame의 두번째 볼 점수 + 다음 프레임 첫번째 점수를 더함
-      game.roll(5); // 사실상 두번째 roll은 첫번째가 strike 이기 때문에 2배가 됨
+      // game.roll(0); // 첫 fraem에 strike가 나면, 두번째 공은 무시(?)
       
       // fraem 2
+      // 10 + 같은 frame의 두번째 볼 점수 + 다음 프레임 첫번째 점수를 더함
+      game.roll(5); // 사실상 두번째 roll은 첫번째가 strike 이기 때문에 2배가 됨
       game.roll(3);
-      game.roll(0);
+      
       
       // 첫번째 프레임 첫번째 공에 strike 발생으로,
       // 10 + 5 + 다음 프레임 첫번째 공(3점)으로 
       // frame 1 : 18점
       // fraem 2 :  3점
-      rollMany(15, 0);
+      rollMany(16, 0);
       assertThat(game.score(), is(26));
   }
+  
   @Test
   public void perfectGame() {
       rollMany(12, 10);
       assertThat(game.score(), is(300));
   }
-  */
 }
