@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
-public class MyGame implements Game {
+public class MyStupidGame implements Game {
 
   // 볼링 게임의 frame 횟수
   private static final int BOWLING_GAME_FRAME_COUNT = 10;
@@ -76,24 +76,17 @@ public class MyGame implements Game {
 
   Rolling rolling;
 
-  public MyGame() {
+  public MyStupidGame() {
     rolling = new Rolling();
   }
 
-  /* (non-Javadoc)
-   * @see com.github.antksk.cleancode.bowling.Game#roll(int)
-   */
   @Override
   public void roll(int pins) {
     rolling.iterateRoll(pins);
   }
 
-  /* (non-Javadoc)
-   * @see com.github.antksk.cleancode.bowling.Game#score()
-   */
   @Override
   public int score() {
-    log.debug("rolls : {}", rolling.rolls);
     Function<Integer, Integer> strike = (frame) -> PERFACT_CLEAR + ((rolling.secondBollByFrame(frame) * 2) + rolling.nextFrameFirstBoll(frame));
     Function<Integer, Integer> clearSpare = (frame) -> PERFACT_CLEAR + rolling.nextFrameFirstBoll(frame);
     Function<Integer, Integer> failSpare = (frame) -> rolling.firstBollByFrame(frame) + rolling.secondBollByFrame(frame);

@@ -28,7 +28,7 @@ public class 볼링_게임_테스트 {
 
   @Before
   public void setUp() {
-    game = new MyGame();
+    game = new MyOriginalPurposeGame();
   }
 
   @Test
@@ -45,12 +45,12 @@ public class 볼링_게임_테스트 {
   }
 
   private void rollAll(int pin) {
-    rollMany(MyGame.BOWLING_GAME_MAX_COUNT, pin);
+    rollMany(MyStupidGame.BOWLING_GAME_MAX_COUNT, pin);
   }
 
   private void rollMany(int rollCount, final int pin) {
 
-    IntStream.range(MyGame.GAME_START_BASE, rollCount).forEach(i -> {
+    IntStream.range(MyStupidGame.GAME_START_BASE, rollCount).forEach(i -> {
       // log.debug("{}", i);
       game.roll(pin);
     });
@@ -76,9 +76,10 @@ public class 볼링_게임_테스트 {
     // 나머지는 모두 쓰러트린 볼 없음
     rollMany(16, 0);
     // spare가 생겨서, 다음 roll에 +3이 될 거라고 예상엤는 데,
-    // assertThat(game.score(), is(16)); // 단순히 score에 pin 갯수를 더했기 때문에, 에러 발생!!!
+    assertThat(game.score(), is(16)); // 단순히 score에 pin 갯수를 더했기 때문에, 에러 발생!!!
   }
   
+  /*
   @Test
   public void oneStrike() {
       // frame 1
@@ -102,4 +103,5 @@ public class 볼링_게임_테스트 {
       rollMany(12, 10);
       assertThat(game.score(), is(300));
   }
+  */
 }
